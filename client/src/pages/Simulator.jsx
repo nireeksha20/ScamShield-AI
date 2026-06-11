@@ -1,47 +1,29 @@
 import { useState } from "react";
+import { scenarios } from "../data/scenarios";
 
 function Simulator() {
+  const [selectedScenarioId, setSelectedScenarioId] = useState(1);
+
+  const scenario = scenarios.find(
+    (scenario) => scenario.id === selectedScenarioId,
+  );
   const [feedback, setFeedback] = useState("");
   const [score, setScore] = useState(null);
   const [nextMessage, setNextMessage] = useState("");
   const [answered, setAnswered] = useState(false);
 
-  const handleChoice = (choice) => {
+  const handleChoice = (choiceId) => {
     if (answered) return;
+
     setAnswered(true);
-    if (choice === "verify") {
-      setFeedback(
-        "✅ Excellent decision! Always verify through official channels before making payments.",
-      );
-      setScore(100);
-      setNextMessage(
-        "Scammer: Sir, there is no time. If you don't act within 10 minutes, your stipend will be cancelled.",
-      );
-    } else if (choice === "pay") {
-      setFeedback(
-        "❌ Risky decision. Scammers often create urgency to pressure victims into paying immediately.",
-      );
-      setScore(25);
-      setNextMessage(
-        "Scammer: Thank you. Please share the transaction screenshot for verification.",
-      );
-    } else if (choice === "ignore") {
-      setFeedback(
-        "⚠️ Ignoring can protect you, but reporting suspicious messages is also important.",
-      );
-      setScore(60);
-      setNextMessage(
-        "Scammer: Reminder! Failure to pay now may result in permanent cancellation.",
-      );
-    } else if (choice === "ask") {
-      setFeedback(
-        "⚠️ Asking questions is helpful, but scammers may continue manipulating you. Independent verification is safest.",
-      );
-      setScore(75);
-      setNextMessage(
-        "Scammer: Our systems are currently overloaded. Please trust this process and complete payment immediately.",
-      );
-    }
+
+    const selectedOption = scenario.options.find(
+      (option) => option.id === choiceId,
+    );
+
+    setFeedback(selectedOption.feedback);
+    setScore(selectedOption.score);
+    setNextMessage(selectedOption.scammerResponse);
   };
 
   const resetSimulation = () => {
@@ -55,45 +37,48 @@ function Simulator() {
     <div style={{ padding: "40px" }}>
       <h1>Scam Simulator</h1>
 
-      <h2>Scenario: Internship Processing Fee Scam</h2>
+      <div style={{ marginBottom: "20px" }}>
+        <label htmlFor="scenario-select">Choose a Scenario:</label>
 
-      <p>
-        Congratulations! Your internship stipend has been approved. Please pay
-        ₹999 processing charges immediately to receive your payment.
-      </p>
+        <br />
+
+        <select
+          id="scenario-select"
+          value={selectedScenarioId}
+          onChange={(e) => {
+            setSelectedScenarioId(Number(e.target.value));
+
+            resetSimulation();
+          }}
+          disabled={answered}
+        >
+          {scenarios.map((scenario) => (
+            <option key={scenario.id} value={scenario.id}>
+              {scenario.title}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <h2>Scenario: {scenario.title}</h2>
+      <p>{scenario.message}</p>
 
       <div style={{ marginTop: "20px" }}>
-        <button
-          style={{ display: "block", marginBottom: "10px" }}
-          disabled={answered}
-          onClick={() => handleChoice("pay")}
-        >
-          Pay immediately
-        </button>
-
-        <button
-          style={{ display: "block", marginBottom: "10px" }}
-          disabled={answered}
-          onClick={() => handleChoice("ignore")}
-        >
-          Ignore the message
-        </button>
-
-        <button
-          style={{ display: "block", marginBottom: "10px" }}
-          disabled={answered}
-          onClick={() => handleChoice("verify")}
-        >
-          Verify through official channels
-        </button>
-
-        <button
-          style={{ display: "block" }}
-          disabled={answered}
-          onClick={() => handleChoice("ask")}
-        >
-          Ask for more information
-        </button>
+        <div style={{ marginTop: "20px" }}>
+          {scenario.options.map((option) => (
+            <button
+              key={option.id}
+              style={{
+                display: "block",
+                marginBottom: "10px",
+              }}
+              disabled={answered}
+              onClick={() => handleChoice(option.id)}
+            >
+              {option.text}
+            </button>
+          ))}
+        </div>
       </div>
 
       {feedback && (
