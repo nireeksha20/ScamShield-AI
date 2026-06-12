@@ -7,17 +7,22 @@ function Simulator() {
   const scenario = scenarios.find(
     (scenario) => scenario.id === selectedScenarioId,
   );
+  const activeTurn =
+    scenario.id === 1 ? scenario.turns[currentTurn - 1] : scenario;
   const [feedback, setFeedback] = useState("");
   const [score, setScore] = useState(null);
   const [nextMessage, setNextMessage] = useState("");
   const [answered, setAnswered] = useState(false);
+
+  const [currentTurn, setCurrentTurn] = useState(1);
+  const [simulationComplete, setSimulationComplete] = useState(false);
 
   const handleChoice = (choiceId) => {
     if (answered) return;
 
     setAnswered(true);
 
-    const selectedOption = scenario.options.find(
+    const selectedOption = activeTurn.options.find(
       (option) => option.id === choiceId,
     );
 
@@ -31,11 +36,28 @@ function Simulator() {
     setScore(null);
     setNextMessage("");
     setAnswered(false);
+
+    setCurrentTurn(1);
+    setSimulationComplete(false);
+  };
+
+  const continueSimulation = () => {
+    if (currentTurn < 3) {
+      setCurrentTurn(currentTurn + 1);
+
+      setFeedback("");
+      setScore(null);
+      setNextMessage("");
+      setAnswered(false);
+    } else {
+      setSimulationComplete(true);
+    }
   };
 
   return (
     <div style={{ padding: "40px" }}>
       <h1>Scam Simulator</h1>
+      <h3>Turn {currentTurn} of 3</h3>
 
       <div style={{ marginBottom: "20px" }}>
         <label htmlFor="scenario-select">Choose a Scenario:</label>
@@ -61,11 +83,11 @@ function Simulator() {
       </div>
 
       <h2>Scenario: {scenario.title}</h2>
-      <p>{scenario.message}</p>
+      <p>{activeTurn.message}</p>
 
       <div style={{ marginTop: "20px" }}>
         <div style={{ marginTop: "20px" }}>
-          {scenario.options.map((option) => (
+          {activeTurn.options.map((option) => (
             <button
               key={option.id}
               style={{
@@ -98,9 +120,15 @@ function Simulator() {
               <p>{nextMessage}</p>
             </>
           )}
-          <button style={{ marginTop: "20px" }} onClick={resetSimulation}>
-            Try Again
-          </button>
+          <div style={{ marginTop: "20px" }}>
+            {currentTurn < 3 ? (
+              <button onClick={continueSimulation}>
+                Continue to Turn {currentTurn + 1}
+              </button>
+            ) : (
+              <button onClick={resetSimulation}>Start New Simulation</button>
+            )}
+          </div>
         </div>
       )}
     </div>
