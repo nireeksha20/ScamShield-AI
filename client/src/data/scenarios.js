@@ -147,48 +147,142 @@ export const scenarios = [
   {
     id: 2,
     title: "Electricity Disconnection Scam",
-    message:
-      "URGENT: Your electricity service will be disconnected today due to an unpaid bill. Please pay immediately using the link below.",
-
-    options: [
+    turns: [
       {
-        id: "pay",
-        text: "Pay immediately",
-        feedback:
-          "❌ Risky decision. Scammers frequently exploit fear of service disruption.",
-        score: 25,
-        scammerResponse:
-          "Scammer: Thank you. Please send the payment confirmation screenshot.",
+        message:
+          "URGENT: Your electricity service will be disconnected today due to an unpaid bill. Please pay immediately using the link below.",
+
+        options: [
+          {
+            id: "pay",
+            text: "Pay immediately",
+            feedback:
+              "❌ Risky decision. Scammers frequently exploit fear of service disruption.",
+            score: 25,
+            scammerResponse:
+              "Scammer: Thank you. Please send the payment confirmation screenshot.",
+          },
+
+          {
+            id: "ignore",
+            text: "Ignore the message",
+            feedback:
+              "⚠️ Ignoring may keep you safe, but verifying the legitimacy of the message is recommended.",
+            score: 60,
+            scammerResponse:
+              "Scammer: Final notice! Your electricity supply will be disconnected permanently.",
+          },
+
+          {
+            id: "verify",
+            text: "Contact the electricity provider directly",
+            feedback:
+              "✅ Excellent decision! Always use official channels to verify urgent requests.",
+            score: 100,
+            scammerResponse:
+              "Scammer: Sir/Madam, our systems are busy. Please cooperate immediately to avoid disconnection.",
+          },
+
+          {
+            id: "ask",
+            text: "Ask for additional details",
+            feedback:
+              "⚠️ Gathering information helps, but scammers may continue applying pressure.",
+            score: 75,
+            scammerResponse:
+              "Scammer: We cannot delay this process. Payment must be completed immediately.",
+          },
+        ],
       },
 
       {
-        id: "ignore",
-        text: "Ignore the message",
-        feedback:
-          "⚠️ Ignoring may keep you safe, but verifying the legitimacy of the message is recommended.",
-        score: 60,
-        scammerResponse:
-          "Scammer: Final notice! Your electricity supply will be disconnected permanently.",
+        message:
+          "Reminder: The disconnection team is already on the way. Your account will be cut off in 10 minutes unless you settle the bill now.",
+
+        options: [
+          {
+            id: "verify",
+            text: "Call the official customer care number",
+            feedback:
+              "✅ Strong choice. Independent verification protects you from fake disconnection threats.",
+            score: 100,
+            scammerResponse:
+              "Scammer: This is a standard emergency process. Please confirm your payment details.",
+          },
+
+          {
+            id: "pay",
+            text: "Use the payment link now",
+            feedback:
+              "❌ Paying under pressure increases the chance of losing money to a fake provider.",
+            score: 20,
+            scammerResponse:
+              "Scammer: Thank you. Your reconnection request is being processed.",
+          },
+
+          {
+            id: "report",
+            text: "Report the message to the provider",
+            feedback:
+              "✅ Great decision. Reporting helps stop scam messages from reaching others.",
+            score: 100,
+            scammerResponse:
+              "Scammer: Your account will be flagged if you do not act immediately.",
+          },
+
+          {
+            id: "ask",
+            text: "Ask for a reference number",
+            feedback:
+              "⚠️ Asking for proof is useful, but you should still confirm through official channels.",
+            score: 80,
+            scammerResponse:
+              "Scammer: The reference number is generated automatically after payment.",
+          },
+        ],
       },
 
       {
-        id: "verify",
-        text: "Contact the electricity provider directly",
-        feedback:
-          "✅ Excellent decision! Always use official channels to verify urgent requests.",
-        score: 100,
-        scammerResponse:
-          "Scammer: Sir/Madam, our systems are busy. Please cooperate immediately to avoid disconnection.",
-      },
+        message:
+          "FINAL NOTICE: Your electricity supply will be disconnected permanently if you do not pay within the next 5 minutes.",
 
-      {
-        id: "ask",
-        text: "Ask for additional details",
-        feedback:
-          "⚠️ Gathering information helps, but scammers may continue applying pressure.",
-        score: 75,
-        scammerResponse:
-          "Scammer: We cannot delay this process. Payment must be completed immediately.",
+        options: [
+          {
+            id: "verify",
+            text: "Verify through the utility company website",
+            feedback:
+              "✅ Excellent judgment. You stayed calm and checked the real source instead of reacting to fear.",
+            score: 100,
+            scammerResponse: "Simulation Complete.",
+          },
+
+          {
+            id: "pay",
+            text: "Pay to restore service immediately",
+            feedback:
+              "❌ Repeated pressure eventually led to a risky decision.",
+            score: 10,
+            scammerResponse: "Simulation Complete.",
+          },
+
+          {
+            id: "ignore",
+            text: "Block and report the sender",
+            feedback:
+              "✅ Excellent response. You protected yourself and helped prevent further scams.",
+            score: 100,
+            scammerResponse: "Simulation Complete.",
+          },
+
+          {
+            id: "ask",
+            text: "Ask for one final confirmation",
+            feedback:
+              "⚠️ Asking for confirmation is sensible, but scammers exploit hesitation and urgency.",
+            score: 70,
+            scammerResponse: "Simulation Complete.",
+          },
+        ],
       },
     ],
   },
