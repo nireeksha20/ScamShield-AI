@@ -1,4 +1,6 @@
 import { useMemo, useState } from "react";
+
+import "../App.css";
 import { scenarios } from "../data/scenarios";
 
 function Simulator() {
