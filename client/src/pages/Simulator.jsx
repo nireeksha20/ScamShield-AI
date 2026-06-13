@@ -70,7 +70,12 @@ function Simulator() {
           onChange={(e) => {
             setSelectedScenarioId(Number(e.target.value));
 
-            resetSimulation();
+            setFeedback("");
+            setScore(null);
+            setNextMessage("");
+            setAnswered(false);
+
+            setCurrentTurn(1);
           }}
           disabled={answered}
         >
