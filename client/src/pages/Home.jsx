@@ -1,26 +1,66 @@
 import { Link } from "react-router-dom";
 
+import "../App.css";
+
 function Home() {
   return (
-    <div style={{ padding: "40px" }}>
-      <h1>ScamShield AI</h1>
+    <div
+      style={{
+        minHeight: "100vh",
 
-      <p>
-        Train yourself to recognize and resist scams before becoming a victim.
-      </p>
+        display: "flex",
 
-      <div style={{ marginTop: "20px" }}>
-        <Link to="/simulator">
-          <button style={{ marginRight: "10px" }}>Start Simulation</button>
-        </Link>
+        alignItems: "center",
 
-        <Link to="/vigilance-score">
-          <button style={{ marginRight: "10px" }}>View Vigilance Score</button>
-        </Link>
+        justifyContent: "center",
 
-        <Link to="/decision-check">
-          <button>Decision Check</button>
-        </Link>
+        padding: "40px",
+      }}
+    >
+      <div
+        className="glass-card"
+        style={{
+          maxWidth: "900px",
+
+          textAlign: "center",
+        }}
+      >
+        <div className="floating-shield">🛡️</div>
+
+        <h1 className="hero-title">ScamShield AI</h1>
+
+        <p className="hero-subtitle">
+          The Behavioral Firewall Against Social Engineering.
+          <br />
+          Train yourself to recognize, resist, and survive modern scams before
+          becoming a victim.
+        </p>
+
+        <div
+          style={{
+            marginTop: "50px",
+
+            display: "flex",
+
+            flexWrap: "wrap",
+
+            justifyContent: "center",
+
+            gap: "20px",
+          }}
+        >
+          <Link to="/simulator">
+            <button className="cyber-button">🚀 Start Simulation</button>
+          </Link>
+
+          <Link to="/vigilance-score">
+            <button className="cyber-button">📊 Vigilance Score</button>
+          </Link>
+
+          <Link to="/decision-check">
+            <button className="cyber-button">⚡ Decision Check</button>
+          </Link>
+        </div>
       </div>
     </div>
   );
