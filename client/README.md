@@ -132,3 +132,9 @@ npm run dev
 **Nireeksha**
 
 Built as part of the **Microsoft Agents League Hackathon 2026**.
+
+Live Demo:
+https://scamshield-ai-nireeksha.web.app
+
+GitHub Repository:
+https://github.com/nireeksha20/ScamShield-AI
